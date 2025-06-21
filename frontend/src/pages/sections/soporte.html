@@ -1,0 +1,81 @@
+<div class="section-content">
+    <h2>Soporte Técnico y Mantenimiento</h2>
+    
+    <div class="grid-container">
+        <!-- Formulario de Reporte -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Reporte de Problemas</h3>
+            </div>
+            <div class="card-body">
+                <form id="reportForm" class="form">
+                    <div class="form-group">
+                        <label for="descripcion">Descripción del Problema</label>
+                        <textarea id="descripcion" name="descripcion" class="form-control" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha">Fecha y Hora de Ocurrencia</label>
+                        <input type="datetime-local" id="fecha" name="fecha" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pantallazo">Adjuntar Pantallazo</label>
+                        <input type="file" id="pantallazo" name="pantallazo" class="form-control" accept="image/*">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar Reporte</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Documentación -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Documentación</h3>
+            </div>
+            <div class="card-body">
+                <div class="doc-section">
+                    <h4>Manuales de Usuario</h4>
+                    <ul class="doc-list">
+                        <li>
+                            <i class="material-icons">picture_as_pdf</i>
+                            <a href="#">Manual de Usuario - Sistema X</a>
+                            <span class="doc-meta">PDF - Última actualización: 2024</span>
+                        </li>
+                        <li>
+                            <i class="material-icons">description</i>
+                            <a href="#">Manual de Usuario - Sistema Y</a>
+                            <span class="doc-meta">Word - Última actualización: 2024</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="doc-section">
+                    <h4>Procedimientos Operativos</h4>
+                    <ul class="doc-list">
+                        <li>
+                            <i class="material-icons">picture_as_pdf</i>
+                            <a href="#">POE de Seguridad Industrial</a>
+                            <span class="doc-meta">PDF - Última actualización: 2024</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('reportForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    const report = {
+        descripcion: formData.get('descripcion'),
+        fecha: formData.get('fecha'),
+        pantallazo: formData.get('pantallazo').name
+    };
+
+    // Aquí iría la lógica para enviar el reporte
+    console.log('Reporte:', report);
+    Helpers.handleError({ message: 'Reporte enviado con éxito' });
+    this.reset();
+});
+</script> 

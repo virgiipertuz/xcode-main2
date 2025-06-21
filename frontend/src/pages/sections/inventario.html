@@ -1,0 +1,275 @@
+<div class="section-content">
+    <h2>Gestión de Inventario</h2>
+
+    <div class="grid-container">
+        <!-- Formulario de Registro/Edición de Producto -->
+        <div class="card">
+            <div class="card-header">
+                <h3 id="formTitle">Registro de Producto</h3>
+            </div>
+            <div class="card-body">
+                <form id="productForm" class="form">
+                    <input type="hidden" id="productId" name="id">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="codigo">Código</label>
+                            <input type="text" id="codigo" name="codigo" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">Nombre del Producto</label>
+                            <input type="text" id="nombre" name="nombre" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion">Descripción</label>
+                        <textarea id="descripcion" name="descripcion" class="form-control" rows="2"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="categoria">Categoría</label>
+                            <select id="categoria" name="categoria" class="form-control" required>
+                                <option value="">Seleccione una categoría</option>
+                                <option value="Industrial">Industrial</option>
+                                <option value="Arquitectónico">Arquitectónico</option>
+                                <option value="Automotriz">Automotriz</option>
+                                <option value="Marino">Marino</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="proveedor">Proveedor</label>
+                            <select id="proveedor" name="proveedor" class="form-control" required>
+                                <!-- Se llenará dinámicamente -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="stock">Stock</label>
+                            <input type="number" id="stock" name="stock" class="form-control" required min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="unidad">Unidad</label>
+                            <select id="unidad" name="unidad" class="form-control" required>
+                                <option value="Galón">Galón</option>
+                                <option value="Litro">Litro</option>
+                                <option value="Balde">Balde</option>
+                                <option value="Kit">Kit</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="precio">Precio</label>
+                            <input type="number" id="precio" name="precio" class="form-control" required min="0" step="0.01">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Guardar Producto</button>
+                        <button type="button" id="cancelEdit" class="btn btn-text" style="display: none;">
+                            Cancelar Edición
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Lista de Productos -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Productos en Inventario</h3>
+                <div class="search-box">
+                    <input type="text" id="searchProduct" class="form-control" placeholder="Buscar producto...">
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Categoría</th>
+                                <th>Stock</th>
+                                <th>Precio</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productList">
+                            <!-- Los productos se cargarán dinámicamente aquí -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Asegurarnos de cargar los scripts necesarios -->
+    <script src="../../js/utils/helpers.js"></script>
+    <script src="../../js/modules/providers.js"></script>
+    <script src="../../js/modules/inventory.js"></script>
+    <script>
+    // Función de inicialización global que será llamada desde el dashboard
+    window.initInventario = function() {
+        console.log('Inicializando módulo de inventario...');
+        loadProveedores();
+        loadProducts();
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const productForm = document.getElementById('productForm');
+        const productList = document.getElementById('productList');
+        const searchInput = document.getElementById('searchProduct');
+        const formTitle = document.getElementById('formTitle');
+        const cancelEditBtn = document.getElementById('cancelEdit');
+        const proveedorSelect = document.getElementById('proveedor');
+        let editingId = null;
+
+        // Cargar proveedores en el select
+        function loadProveedores() {
+            console.log('Cargando proveedores para el select...');
+            const proveedores = Providers.getActiveProviders();
+            console.log('Proveedores activos encontrados:', proveedores);
+            proveedorSelect.innerHTML = '<option value="">Seleccione un proveedor</option>' +
+                proveedores.map(proveedor => 
+                    `<option value="${proveedor.id}">${proveedor.nombre}</option>`
+                ).join('');
+        }
+
+        // Cargar productos existentes
+        function loadProducts() {
+            console.log('Cargando productos...');
+            const products = Inventory.getAllProducts();
+            console.log('Productos encontrados:', products);
+            renderProducts(products);
+        }
+
+        // Renderizar productos en la tabla
+        function renderProducts(products) {
+            const proveedores = Providers.getAllProviders();
+            productList.innerHTML = products.map(product => {
+                const proveedor = proveedores.find(p => p.id === product.proveedor);
+                return `
+                    <tr class="${product.estado === 'inactivo' ? 'inactive-row' : ''}">
+                        <td>${Helpers.sanitizeInput(product.codigo)}</td>
+                        <td>${Helpers.sanitizeInput(product.nombre)}</td>
+                        <td>${Helpers.sanitizeInput(product.categoria)}</td>
+                        <td>${product.stock} ${product.unidad}</td>
+                        <td>S/ ${product.precio.toFixed(2)}</td>
+                        <td>
+                            <span class="status-badge ${product.estado === 'activo' ? 'active' : 'inactive'}">
+                                ${product.estado}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-text" onclick="editProduct('${product.id}')"
+                                    ${product.estado === 'inactivo' ? 'disabled' : ''}>
+                                <i class="material-icons">edit</i>
+                            </button>
+                            <button class="btn btn-sm btn-text" onclick="toggleProductStatus('${product.id}')">
+                                <i class="material-icons">${product.estado === 'activo' ? 'block' : 'restore'}</i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Limpiar formulario
+        function resetForm() {
+            productForm.reset();
+            editingId = null;
+            formTitle.textContent = 'Registro de Producto';
+            cancelEditBtn.style.display = 'none';
+            document.getElementById('productId').value = '';
+            document.getElementById('codigo').removeAttribute('readonly');
+        }
+
+        // Manejar envío del formulario
+        productForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(productForm);
+            const product = {
+                codigo: formData.get('codigo'),
+                nombre: formData.get('nombre'),
+                descripcion: formData.get('descripcion'),
+                categoria: formData.get('categoria'),
+                stock: Number(formData.get('stock')),
+                unidad: formData.get('unidad'),
+                precio: Number(formData.get('precio')),
+                proveedor: formData.get('proveedor')
+            };
+
+            try {
+                if (editingId) {
+                    Inventory.updateProduct(editingId, product);
+                    Helpers.handleError({ message: 'Producto actualizado con éxito' });
+                } else {
+                    Inventory.addProduct(product);
+                    Helpers.handleError({ message: 'Producto registrado con éxito' });
+                }
+                resetForm();
+                loadProducts();
+            } catch (error) {
+                Helpers.handleError(error);
+            }
+        });
+
+        // Búsqueda de productos
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value;
+            const filteredProducts = Inventory.searchProducts(query);
+            renderProducts(filteredProducts);
+        });
+
+        // Cancelar edición
+        cancelEditBtn.addEventListener('click', resetForm);
+
+        // Cargar datos iniciales
+        console.log('Inicializando vista de inventario...');
+        loadProveedores();
+        loadProducts();
+    });
+
+    // Funciones globales
+    window.editProduct = function(id) {
+        const product = Inventory.getProduct(id);
+        if (product) {
+            editingId = id;
+            document.getElementById('productId').value = id;
+            document.getElementById('codigo').value = product.codigo;
+            document.getElementById('codigo').readOnly = true;
+            document.getElementById('nombre').value = product.nombre;
+            document.getElementById('descripcion').value = product.descripcion || '';
+            document.getElementById('categoria').value = product.categoria;
+            document.getElementById('stock').value = product.stock;
+            document.getElementById('unidad').value = product.unidad;
+            document.getElementById('precio').value = product.precio;
+            document.getElementById('proveedor').value = product.proveedor;
+            
+            document.getElementById('formTitle').textContent = 'Editar Producto';
+            document.getElementById('cancelEdit').style.display = 'inline-block';
+        }
+    };
+
+    window.toggleProductStatus = function(id) {
+        const product = Inventory.getProduct(id);
+        if (product) {
+            const action = product.estado === 'activo' ? 'desactivar' : 'reactivar';
+            if (confirm(`¿Está seguro de ${action} este producto?`)) {
+                try {
+                    if (product.estado === 'activo') {
+                        Inventory.deleteProduct(id);
+                        Helpers.handleError({ message: 'Producto desactivado con éxito' });
+                    } else {
+                        Inventory.updateProduct(id, { estado: 'activo' });
+                        Helpers.handleError({ message: 'Producto reactivado con éxito' });
+                    }
+                    loadProducts();
+                } catch (error) {
+                    Helpers.handleError(error);
+                }
+            }
+        }
+    };
+    </script>
+</div> 
