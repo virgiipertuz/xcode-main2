@@ -1,0 +1,25 @@
+﻿$RECYCLE.BIN/
+System Volume Information/
+logs/
+*.log
+node_modules/
+npm-debug.log
+yarn-error.log
+target/
+.env
+.env.*
+!.env.example
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db
+*.tmp
+*.cache
+* copy/
+* - copia/
+apache-maven-3.9.10/
