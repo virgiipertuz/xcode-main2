@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
-        window.location.href = '/dashboard.html';
         try {
             const response = await axios.post('/api/auth/login', {
                 username,
@@ -19,10 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.status === 200) {
                 // Si hay token, guardarlo
                 if (response.data.token) {
-   //                 localStorage.setItem('token', response.data.token);
                 }
                 // Redirigir al dashboard
-                window.location.href = '/dashboard.html';
+                window.location.href = 'dashboard.html';
             }
         } catch (error) {
             console.error('Error en el login:', error);
