@@ -1,0 +1,500 @@
+body {
+
+    display: flex;
+    height: 100vh;
+  }
+  
+  .menu-lateral {
+    width: 250px;
+    background-color: #343a40;
+    color: #fff;
+    padding: 15px;
+  }
+  
+  .menu-lateral a {
+    color: #fff;
+    text-decoration: none;
+    margin-bottom: 10px;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .menu-lateral a:hover {
+    background-color: #007bff; /* Cambia el color de fondo al pasar el mouse */
+    transform: scale(1.05); /* Añade un pequeño zoom para el hover */
+}
+  
+  .contenido {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #ffffff;
+  }
+  
+  .seccion {
+    
+    display: none;
+  }
+  
+  .seccion.activa {
+    display: block;
+  }
+  @media (max-width: 768px) {
+    .menu-lateral {
+        width: 200px; /* Reduce el ancho en pantallas pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-lateral {
+        width: 100%; /* El menú se vuelve de ancho completo en pantallas más pequeñas */
+    }
+}
+.search-bar {
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    width: 75%;
+    display: inline-block;
+}
+
+.search-bar button {
+    display: inline-block;
+}
+
+.documentos h4 {
+    margin-top: 20px;
+}
+/* Diseño General */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Sección de Historial y Seguimiento */
+  #historial-seguimiento {
+    margin: 30px;
+  }
+  
+  #historial-seguimiento h2 {
+    color: #343a40;
+    margin-bottom: 20px;
+  }
+  
+  #historial-seguimiento h3 {
+    color: #495057;
+    margin-top: 20px;
+  }
+  
+  #historial-seguimiento .form-label {
+    font-weight: bold;
+  }
+  
+  #historial-seguimiento .table {
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  #historial-seguimiento .table th,
+  #historial-seguimiento .table td {
+    text-align: center;
+    padding: 12px;
+  }
+  
+  #historial-seguimiento .table th {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  #historial-seguimiento .table tbody tr:nth-child(odd) {
+    background-color: #f8f9fa;
+  }
+  
+  #historial-seguimiento .table tbody tr:nth-child(even) {
+    background-color: #e9ecef;
+  }
+  
+  #historial-seguimiento .form-control {
+    width: 250px;
+  }
+  
+  #historial-seguimiento .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  #historial-seguimiento .btn {
+    margin-top: 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+  }
+  
+  #historial-seguimiento .btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Sección de Registro de Nuevos Proveedores */
+  #registro-proveedor {
+    margin: 30px;
+  }
+  
+  #registro-proveedor h2 {
+    color: #343a40;
+    margin-bottom: 20px;
+  }
+  
+  #registro-proveedor .form-label {
+    font-weight: bold;
+  }
+  
+  #registro-proveedor .form-control {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  #registro-proveedor .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  #registro-proveedor button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+  
+  #registro-proveedor button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Página de Confirmación de Registro */
+  .container {
+    max-width: 800px;
+  }
+  
+  .alert {
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+  }
+  
+  .alert-heading {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  ul li {
+    margin: 5px 0;
+  }
+  
+  ul li span {
+    font-weight: bold;
+  }
+  
+  .btn-primary {
+    margin-top: 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Estilo del gráfico */
+  canvas {
+    max-width: 100%;
+    margin-top: 20px;
+  }
+ /* Estilos generales */
+.seccion h2 {
+  color: #343a40;
+  margin-bottom: 20px;
+}
+
+input.form-control, textarea.form-control, select.form-control {
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.table {
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #dee2e6; /* Añade un borde sutil */
+}
+
+.zona {
+  width: 100%; /* Ajusta al contenedor */
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: white;
+  border-radius: 5px;
+}
+
+.rojo {
+  background-color: red;
+}
+
+.amarillo {
+  background-color: #ffc107; /* Mejor contraste */
+  color: black;
+}
+
+.verde {
+  background-color: green;
+}
+/* Estilos para el formulario de registro de productos */
+form {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 50%;
+  margin: 20px auto;
+}
+
+form label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  display: block;
+  font-weight: bold;
+}
+
+form input, form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+form button {
+  background-color: #0056b3;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
+form button:hover {
+  background-color: #0056b3;
+}
+/* Estilos para la tabla de actualización de existencias */
+table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+input[type="text"], input[type="number"], input[type="date"] {
+  width: 100%;
+  padding: 6px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+input[type="number"]:focus, input[type="text"]:focus, input[type="date"]:focus {
+  border-color: #4CAF50;
+}
+
+tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Estilos generales */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #e8e8e8;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2 {
+  text-align: center;
+  color: #333;
+}
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+/* Estilos para el panel de administración de usuarios */
+.panel-admin {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 60%;
+  margin: 20px auto;
+}
+
+.panel-admin h2 {
+  text-align: center;
+}
+
+.panel-admin form {
+  margin-bottom: 20px;
+}
+
+.panel-admin label {
+  font-weight: bold;
+}
+
+.panel-admin input, .panel-admin select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.panel-admin button {
+  background-color: #0056b3;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.panel-admin button:hover {
+  background-color: #0056b3;
+}
+/* Estilos para la matriz de permisos */
+#matriz-permisos {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+
+#matriz-permisos th, #matriz-permisos td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+#matriz-permisos th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
+tr:hover {
+  background-color: #f9f9f9;
+}
+/* Estilos para los formularios desplegables */
+.formulario-desplegable {
+  display: none;  /* Inicialmente ocultos */
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 60%;
+  margin: 20px auto;
+}
+
+.btn-desplegar {
+  background-color: #0056b3;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.btn-desplegar:hover {
+  background-color: #004494;
+}
+
+/* Los botones de solicitud tienen un color consistente */
+.btn-solicitar, .btn-despacho {
+  background-color: #0056b3;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.btn-solicitar:hover, .btn-despacho:hover {
+  background-color: #004494;
+}
+/* Botones más pequeños */
+.btn-desplegar, .btn-solicitar, .btn-despacho {
+  background-color: #0056b3;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: auto;  /* Ancho automático según el contenido */
+  margin-bottom: 10px;
+  display: inline-block; /* Para que los botones se ajusten uno al lado del otro si es necesario */
+  font-size: 16px; /* Tamaño de fuente normal */
+}
+
+.btn-desplegar:hover, .btn-solicitar:hover, .btn-despacho:hover {
+  background-color: #004494;
+}
+
+
+  
